@@ -32,7 +32,7 @@ log-bin=mysql-bin # 打开 binlog
 
 binlog-format=ROW # 修改为 ROW 模式
 ```
-2.启动Reader
+2.启动Reader<br>
 2.1.下载压缩包 --- 后续要补充压缩包位置
 
 2.2.解压到任意目录
