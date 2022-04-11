@@ -73,9 +73,9 @@ tail -f logs/reader.log
 sh bin/stop.sh
 ```
 ### 启动SDK
-[SDK启动]()
+[SDK启动](https://github.com/meituan/ptubes/wiki/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97)
 ### 更多配置
-[配置文档]()
+[配置文档](https://github.com/meituan/ptubes/wiki/%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97)
 
 ## Documentation
 - 1.[Home](https://github.com/meituan/ptubes/wiki)
