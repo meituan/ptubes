@@ -1,0 +1,108 @@
+{
+  "meta" : "dbFieldName=test.test01;dbFieldType=test01;prikey=id;partkey=id;",
+  "name" : "test01_V1",
+  "namespace" : "test",
+  "doc" : "Auto-generated Avro schema for test.test01. Generated at Jul 05, 2019 08:15:18 PM CST",
+  "type" : "record",
+  "fields" : [ {
+    "default" : null,
+    "meta" : "dbFieldName=id;dbFieldPosition=0;dbFieldType=BIGINT;",
+    "name" : "id",
+    "type" : [ "null", "long" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=year;dbFieldPosition=1;dbFieldType=YEAR;",
+    "name" : "year",
+    "type" : [ "null", "int" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=bigint;dbFieldPosition=2;dbFieldType=BIGINT;",
+    "name" : "bigint",
+    "type" : [ "null", "long" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=double;dbFieldPosition=3;dbFieldType=DOUBLE;",
+    "name" : "double",
+    "type" : [ "null", "double" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=float;dbFieldPosition=4;dbFieldType=FLOAT;",
+    "name" : "float",
+    "type" : [ "null", "float" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=mediumint;dbFieldPosition=5;dbFieldType=MEDIUMINT;",
+    "name" : "mediumint",
+    "type" : [ "null", "int" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=real;dbFieldPosition=6;dbFieldType=DOUBLE;",
+    "name" : "real",
+    "type" : [ "null", "double" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=smallint;dbFieldPosition=7;dbFieldType=SMALLINT;",
+    "name" : "smallint",
+    "type" : [ "null", "int" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=tinyint;dbFieldPosition=8;dbFieldType=TINYINT;",
+    "name" : "tinyint",
+    "type" : [ "null", "int" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=char;dbFieldPosition=9;dbFieldType=CHAR;",
+    "name" : "char",
+    "type" : [ "null", "string" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=longtext;dbFieldPosition=10;dbFieldType=TEXT;",
+    "name" : "longtext",
+    "type" : [ "null", "string" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=mediumtext;dbFieldPosition=11;dbFieldType=TEXT;",
+    "name" : "mediumtext",
+    "type" : [ "null", "string" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=text;dbFieldPosition=12;dbFieldType=TEXT;",
+    "name" : "text",
+    "type" : [ "null", "string" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=tinytext;dbFieldPosition=13;dbFieldType=TEXT;",
+    "name" : "tinytext",
+    "type" : [ "null", "string" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=json_col;dbFieldPosition=14;dbFieldType=JSON;",
+    "name" : "json_col",
+    "type" : [ "null", "string" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=utime;dbFieldPosition=15;dbFieldType=TIMESTAMP;",
+    "name" : "utime",
+    "type" : [ "null", "long" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=ctime;dbFieldPosition=16;dbFieldType=TIMESTAMP;",
+    "name" : "ctime",
+    "type" : [ "null", "long" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldName=set_id_update;dbFieldPosition=17;dbFieldType=BIGINT;",
+    "name" : "set_id_update",
+    "type" : [ "null", "long" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldPosition=18",
+    "name" : "dbusExtraField",
+    "type" : [ "null", "string" ]
+  }, {
+    "default" : null,
+    "meta" : "dbFieldPosition=19",
+    "name" : "dbusTypeField",
+    "type" : [ "null", "int" ]
+  } ]
+}

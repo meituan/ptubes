@@ -1,0 +1,32 @@
+Ptubes
+Copyright 2016-2022 ©Meituan
+
+This product is based on  open-replicator (https://github.com/whitesock/open-replicator/)
+
+Copyright 2016 whitesock（Jingqi xu）
+
+License: Apache 2.0 - http://www.apache.org/licenses/LICENSE-2.0
+
+This product is based on databus (https://github.com/linkedin/databus/)
+
+Copyright 2013 LinkedIn Corp.
+
+License: Apache 2.0 - http://www.apache.org/licenses/LICENSE-2.0
+
+This product is based on mysql-binlog-connector-java (https://github.com/shyiko/mysql-binlog-connector-java/）
+
+Copyright 2013 Stanley Shyiko
+
+License: Apache 2.0 - http://www.apache.org/licenses/LICENSE-2.0
+
+This product is based on nuls-v1（https://github.com/nuls-io/nuls-v1）
+
+Copyright (c) 2017-2018 nuls.io
+
+License: MIT-https://github.com/nuls-io/nuls-v1/blob/master/LICENSE
+
+The product is depends on Java Hamcrest (https://github.com/qos-ch/logback)
+
+Copyright (C) 1999-2015, QOS.ch.
+
+License: Eclipse Public License v1.0-https://www.eclipse.org/legal/epl-v10.html

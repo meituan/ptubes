@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="info">
+    <Properties>
+        <Property name="LOG_FILE_PATH">${sys:user.dir}/logs/</Property>
+    </Properties>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] (%F:%L) %t - %m%n"/>
+        </Console>
+
+        <Routing name="Routing">
+            <Routes pattern="$${ctx:TASKNAME}">
+                <Route key="$${ctx:TASKNAME}">
+                    <RollingFile name="xmd-reader" fileName="${LOG_FILE_PATH}/reader.log" filePattern="${LOG_FILE_PATH}/reader-%d{yyyy-MM-dd}-%i.log">
+                        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] (%F:%L) %t - %m%n"/>
+                        <Policies>
+                            <TimeBasedTriggeringPolicy/>
+                            <SizeBasedTriggeringPolicy size="512 MB"/>
+                        </Policies>
+                    </RollingFile>
+                </Route>
+
+                <Route>
+                    <RollingFile name="xmd-${ctx:TASKNAME}" fileName="${LOG_FILE_PATH}/${ctx:TASKNAME}.log"
+                                 filePattern="${LOG_FILE_PATH}/${ctx:TASKNAME}-%d{yyyy-MM-dd}-%i.log">
+                        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] (%F:%L) %t - %m%n"/>
+                        <Policies>
+                            <TimeBasedTriggeringPolicy/>
+                            <SizeBasedTriggeringPolicy size="512 MB"/>
+                        </Policies>
+                    </RollingFile>
+                </Route>
+            </Routes>
+
+            <IdlePurgePolicy timeToLive="7" timeUnit="days"/>
+        </Routing>
+
+        <RollingFile name="ErrorLog" fileName="${LOG_FILE_PATH}/error.log" filePattern="${LOG_FILE_PATH}/error-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] (%F:%L) %t - %m%n"/>
+            <Filters>
+                <!--ACCEPT/DENY/NEUTRAL-->
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="512 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="ExtractLog" fileName="${LOG_FILE_PATH}/extract.log" filePattern="${LOG_FILE_PATH}/extract-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] %t - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="512 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="TransmitLog" fileName="${LOG_FILE_PATH}/transmit.log" filePattern="${LOG_FILE_PATH}/transmit-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] %t - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="512 MB"/>
+            </Policies>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Routing"/>
+            <AppenderRef ref="ErrorLog"/>
+        </root>
+
+        <logger name="com.meituan.ptubes.reader.container.network.connections.Session" level="INFO">
+            <AppenderRef ref="ExtractLog"/>
+            <AppenderRef ref="TransmitLog"/>
+        </logger>
+        <logger name="com.meituan.ptubes.reader.container.network.connections.SessionExtractor" level="DEBUG">
+            <AppenderRef ref="ExtractLog"/>
+        </logger>
+        <logger name="com.meituan.ptubes.reader.container.network.connections.SessionTransmitter" level="DEBUG">
+            <AppenderRef ref="TransmitLog"/>
+        </logger>
+    </loggers>
+</configuration>

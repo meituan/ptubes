@@ -1,0 +1,36 @@
+{
+  "tag" : "1.0",
+  "ctime" : "2020-09-16 11:01:50",
+  "metaVersion" : "test.ta.V1",
+  "tableOwner" : "test",
+  "table" : "ta",
+  "orderedFieldMetaList" : [ {
+    "index" : 0,
+    "name" : "dbName",
+    "dbType" : "VARCHAR",
+    "defaultValue" : null,
+    "hasDefaultValue" : false,
+    "precision" : 100,
+    "scale" : 0,
+    "unsigned" : true,
+    "primaryKey" : true,
+    "partitionKey" : true,
+    "nullable" : false,
+    "primitiveType" : "VARCHAR"
+  }, {
+    "index" : 1,
+    "name" : "sql",
+    "dbType" : "VARCHAR",
+    "defaultValue" : null,
+    "hasDefaultValue" : false,
+    "precision" : 65535,
+    "scale" : 0,
+    "unsigned" : true,
+    "primaryKey" : false,
+    "partitionKey" : false,
+    "nullable" : true,
+    "primitiveType" : "VARCHAR"
+  } ],
+  "pkFieldListStr" : "dbName",
+  "primaryKeyFieldListStr" : "dbName"
+}
