@@ -55,6 +55,7 @@ ptubes.server.tasks=demoR1,demoR2 //任务名, 每个任务需要有对应文件
 程序会根据 ptubes.server.tasks 的参数继续读入ReaderTask相关配置。以上图为例，程序会自动从当前目录寻找 demoR1.properties 和 demoR2.properties，我们分别建立对应的文件（如下图所示）
 ```demoRx.properties
 ptubes.reader.mysql.host= //mysql host地址
+ptubes.reader.mysql.port= //mysql 端口
 ptubes.reader.mysql.user= //mysql 用户名
 ptubes.reader.mysql.passwd= //mysql密码
 ```
