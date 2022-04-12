@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} %t [%p] (%F:%L) %msg%n" />
+        </Console>
+        <RollingFile name="RollingFile" fileName="${sys:ptubes.sdk.log.dir}/${sys:ptubes.sdk.log.filename}"
+            filePattern="${sys:ptubes.sdk.log.dir}/${sys:ptubes.sdk.log.filename}.%d{yyyy-MM-dd}.gz">
+<!--            <PatternLayout pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} %t [%p] %l %msg%n" /> &lt;!&ndash;show  fully qualified class name of the logger entry point&ndash;&gt;-->
+            <PatternLayout pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} %t [%p] (%F:%L) %msg%n" /> <!--show line number of the logger entry point-->
+            <TimeBasedTriggeringPolicy />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </root>
+    </Loggers>
+</Configuration>
