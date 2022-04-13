@@ -87,7 +87,7 @@ public class ExampleByMainFunction {
                 }
                 if (confClass.isAssignableFrom(PtubesSdkSubscriptionConfig.class)) {
                     return (T) new PtubesSdkSubscriptionConfig(
-                        "dbustest2-5",
+                        "demoReadTask",
                         taskName,
                         "127.0.0.1:2181",
                         "ptubes_db.ptubes_test_table,ptubes_db2.ptubes_test_table2"
