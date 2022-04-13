@@ -2,15 +2,15 @@
 ## Introduction
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-Ptubes是一款基于PITR（Point In Time Recovery）方式实现的数据库灾备产品，提供了数据库日志安全备份、高效分发等功能，可用于包括数据备份、数据回放、数据多活等场景。
+Ptubes是一款基于PITR（Point In Time Recovery）方式实现的数据库灾备产品，提供了数据库变更日志安全备份、高效分发等功能，可用于包括数据备份、数据回放、数据中心多活等场景。
 
-1.数据订阅
+1.变更备份
 
-Ptubes将数据库变更数据发送到下游的服务，用户根据自己的需求定制消费逻辑，适用于缓存更新策略、业务异步解耦、异构数据源的数据实时同步和复杂ETL的数据实时同步等多种业务场景。
+Ptubes支持MySQL到MySQL之间的数据实时备份，适用于SET化、数据异地灾备、本地数据灾备、查询与报表分流、实时数据仓库等多种业务场景。
 
-2.数据同步
+2.日志分发
 
-Ptubes支持MySQL到MySQL之间的数据实时同步，适用于SET化、数据异地灾备、本地数据灾备、查询与报表分流、实时数据仓库等多种业务场景。
+Ptubes将数据库变更数据分发到下游的服务，用户根据自己的需求定制消费逻辑，适用于缓存更新策略、业务异步解耦、异构数据源的数据实时同步和复杂ETL的数据实时同步等多种业务场景。
 
 ![架构图](https://raw.githubusercontent.com/wiki/meituan/ptubes/images/architecture.png)
 
