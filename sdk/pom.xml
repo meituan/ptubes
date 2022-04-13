@@ -4,19 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>ptubes-all</artifactId>
-        <groupId>com.meituan.ptubes</groupId>
+        <groupId>com.meituan</groupId>
         <version>1.0.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>sdk</artifactId>
+    <artifactId>ptubes-sdk</artifactId>
     <name>ptubes-sdk ${project.version}</name>
 
     <dependencies>
         <dependency>
-            <groupId>com.meituan.ptubes</groupId>
-            <artifactId>common</artifactId>
+            <groupId>com.meituan</groupId>
+            <artifactId>ptubes-common</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -165,4 +165,17 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <profiles>
+        <profile>
+            <id>disable-java8-doclint</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </properties>
+        </profile>
+    </profiles>
 </project>
