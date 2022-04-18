@@ -26,8 +26,8 @@ do
   classPath="${classPath}:${library}"
 done
 
-JVM_MEM_OPTION=" -Xms1024m -Xmx1024m -XX:MaxDirectMemorySize=1024M"
-JVM_GC_OPTIONS=" -XX:NewSize=8192m -XX:MaxNewSize=8192m -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:CMSInitiatingOccupancyFraction=85 -XX:+UseCMSInitiatingOccupancyOnly -XX:SurvivorRatio=14 -XX:MaxTenuringThreshold=15 "
+JVM_MEM_OPTION=" -Xms4096m -Xmx4096m -XX:MaxDirectMemorySize=4096M"
+JVM_GC_OPTIONS=" -XX:NewSize=2048m -XX:MaxNewSize=2048m -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:CMSInitiatingOccupancyFraction=85 -XX:+UseCMSInitiatingOccupancyOnly -XX:SurvivorRatio=14 -XX:MaxTenuringThreshold=15 "
 JVM_GC_OPTIONS_2=" -XX:+CMSScavengeBeforeRemark -XX:+ScavengeBeforeFullGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:+ExplicitGCInvokesConcurrent "
 JVM_GC_LOG_OPTIONS=" -XX:+PrintFlagsFinal -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=10M -Xloggc:${DEPLOY_DIR}/gclogs/gc.log "
 JVM_HEAPDUMP="-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${DEPLOY_DIR}/heapDump.hprof"
