@@ -2,7 +2,12 @@
 ## Introduction
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-Ptubes是一款基于PITR（Point In Time Recovery）方式实现的数据库灾备产品，可用于将整个数据库还原到特定的时间点，帮助使用者提升数据库的可靠性和安全性。产品由Reader、Storage和SDK三个核心组件构成。Ptubes提供了数据库变更事件安全备份、高效分发等功能，可广泛应用于数据备份、数据回放、数据恢复、事件驱动、数据库多活等场景。
+Ptubes是一款基于PITR（Point In Time Recovery）方式实现的数据库灾备产品，可用于将整个数据库还原到特定的时间点，帮助使用者提升数据库的可靠性和安全性。产品由Reader、Storage和SDK三个核心组件构成。Ptubes提供了数据库变更事件安全备份、高效分发等功能，典型场景如下：
+* 数据备份
+* 数据回放
+* 数据恢复
+* 事件驱动
+* 数据库多活
 
 ## Quick Start
 
