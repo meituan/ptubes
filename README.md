@@ -92,7 +92,7 @@ sh bin/stop.sh
   - 3.2.[Start Reader](https://github.com/meituan/ptubes/wiki/QuickStart#3-start-reader)
 - 4.[Client User Guide](https://github.com/meituan/ptubes/wiki/Client-User-Guide)
   - 4.1.[Start mode one](https://github.com/meituan/ptubes/wiki/Client-User-Guide#2-start-mode-one)
-  - 4.2.[Start mode two](https://github.com/meituan/ptubes/wiki/Client-User-Guide#3-startup-mode-two)
+  - 4.2.[Start mode two](https://github.com/meituan/ptubes/wiki/Client-User-Guide#3-start-mode-two)
   - 4.3.[Start mode three](https://github.com/meituan/ptubes/wiki/Client-User-Guide#4-start-mode-three)
 - 5.[Configuration usage guide](https://github.com/meituan/ptubes/wiki/Configuration-usage-guide)
   - 5.1.[Reader Configuration](https://github.com/meituan/ptubes/wiki/Configuration-usage-guide#1-reader-configuration)
