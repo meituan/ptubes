@@ -30,9 +30,9 @@ Ptubes synchronization data requires mysql to support Binlog ROW mode in advance
 ```
 [mysqld]
 
-log-bin=mysql-bin # 打开 binlog
+log-bin=mysql-bin # Open binlog
 
-binlog-format=ROW # 修改为 ROW 模式
+binlog-format=ROW # Modify to ROW mode
 ```
 **2.Start Reader**<br>
 2.1.Download the compressed package<br>
@@ -76,9 +76,9 @@ tail -f logs/reader.log
 ```
 sh bin/stop.sh
 ```
-### 启动SDK
+### Start the SDK
 [SDK start](https://github.com/meituan/ptubes/wiki/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97)
-### 更多配置
+### more configuration
 [configuration document](https://github.com/meituan/ptubes/wiki/%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97)
 
 ## Documentation
