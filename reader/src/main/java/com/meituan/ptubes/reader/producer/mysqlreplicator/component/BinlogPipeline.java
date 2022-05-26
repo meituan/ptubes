@@ -95,24 +95,28 @@ public class BinlogPipeline implements BinlogEventListener {
         shutdownRequest.set(true);
     }
 
-    public void start() {
-        if (running.compareAndSet(false, true)) {
-            this.binlogDataDisruptor = new Disruptor<>(BinlogDataFactory.INSTANCE, binlogDataBufferSize,
+    public void prepare(){
+        //This is just to initialize some variables, there is no problem even if repeated execution
+        this.binlogDataDisruptor = new Disruptor<>(BinlogDataFactory.INSTANCE, binlogDataBufferSize,
                 new BinlogDataHandlerThreadFactory(eventProducer.getReaderTaskName()),
                 ProducerType.SINGLE, new BlockingWaitStrategy());
-            this.binlogDataBuffer = binlogDataDisruptor.getRingBuffer();
+        this.binlogDataBuffer = binlogDataDisruptor.getRingBuffer();
 
-            RowParser[] rowParsers = new RowParser[12];
-            for (int i = 0; i < rowParsers.length; ++i) {
-                rowParsers[i] = new RowParser(this);
-            }
-            BinlogWriter binlogWriter = new BinlogWriter(this);
-            this.rowParserGroup = binlogDataDisruptor.handleEventsWithWorkerPool(rowParsers);
-            this.writerGroup = this.rowParserGroup.thenHandleEventsWithWorkerPool(binlogWriter);
+        RowParser[] rowParsers = new RowParser[12];
+        for (int i = 0; i < rowParsers.length; ++i) {
+            rowParsers[i] = new RowParser(this);
+        }
+        BinlogWriter binlogWriter = new BinlogWriter(this);
 
-            binlogDataDisruptor.setDefaultExceptionHandler(new PipelineExceptionHandler());
-            this.binlogContextParser = new BinlogContextParser(this, 512);
+        this.rowParserGroup = binlogDataDisruptor.handleEventsWithWorkerPool(rowParsers);
+        this.writerGroup =  rowParserGroup.thenHandleEventsWithWorkerPool(binlogWriter);
+        binlogDataDisruptor.setDefaultExceptionHandler(new PipelineExceptionHandler());
+        this.binlogContextParser = new BinlogContextParser(this, 512);
+        LOG.info("prepare {} binlog pipeline resource success", eventProducer.getReaderTaskName());
+    }
 
+    public void start() {
+        if (running.compareAndSet(false, true)) {
             binlogDataDisruptor.start();
             binlogContextParser.start();
             LOG.info("start {} binlog pipeline startup [true]", eventProducer.getReaderTaskName());

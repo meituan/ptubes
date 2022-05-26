@@ -530,8 +530,8 @@ public class ReplicatorEventProducer implements EventProducer<MySQLMaxBinlogInfo
 					startBinlogInfo.getBinlogId(), startBinlogInfo.getBinlogOffset(), startBinlogInfo.getTimestamp(),
 					gtidSetStr, startBinlogInfo.getIncrementalLabel(), producerConfig.getReaderTaskName());
 
-			// Attention: start pipeline first, maybe WorkProcessor can hang when halted before run, see: https://github.com/LMAX-Exchange/disruptor/issues/308
-			binlogPipeline.start();
+			// Attention: The pipeline startup is split into two parts, first prepare the resources, so that the replicator can be started
+			binlogPipeline.prepare();
 			if (startBinlogInfo.getBinlogId() < 0) {
 				replicator.start(startBinlogInfo.getTimestamp());
 			} else if (StringUtils.isBlank(gtidSetStr)) {
@@ -539,6 +539,13 @@ public class ReplicatorEventProducer implements EventProducer<MySQLMaxBinlogInfo
 			} else {
 				replicator.start(oldContext);
 			}
+			// Attention: The pipeline can be started only if the replicator is successfully started (the database is available),
+			// otherwise the Disruptor will not be closed and the thread will leak
+			// Start the pipeline first, if the replicator is unavailable,
+			// then the method of catching the exception and then stopping the Disruptor will be risky,
+			// The shutdown of the Disruptor will only close the worker that has been successfully started.
+			// If the worker only starts part of the stop when it stops, it will also leak the thread.
+			binlogPipeline.start();
 		}
 
 		public void start(boolean startWithRecover) {
