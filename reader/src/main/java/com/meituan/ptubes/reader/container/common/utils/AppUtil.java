@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 public class AppUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppUtil.class);
-    private static final String VERSION = "1.5.0";
+    private static final String VERSION = "1.0.0";
 
     public static volatile String APP_NAME = null;
     public static String IP = IPUtil.getIpV4();
