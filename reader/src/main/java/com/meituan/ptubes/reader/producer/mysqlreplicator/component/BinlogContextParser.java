@@ -148,8 +148,8 @@ public class BinlogContextParser extends StreamableThreadBase<BinlogEventV4, Voi
                 long nextValidBufferPos = stageBuffer.tryNext();
                 BinlogData binlogData = stageBuffer.get(nextValidBufferPos);
                 binlogData.setSkipable(false);
-                binlogData.setTxnContext(txnContext);
-                binlogData.setRowContext(rowContext);
+                binlogData.setTxnContext(TxnContext.clone(txnContext));
+                binlogData.setRowContext(RowContext.clone(rowContext));
                 binlogData.setType(type);
                 binlogData.setRow(row);
                 binlogData.setEventIndex(eventIndex);
