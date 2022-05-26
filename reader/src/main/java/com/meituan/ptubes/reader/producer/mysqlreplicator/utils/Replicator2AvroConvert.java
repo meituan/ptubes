@@ -144,8 +144,10 @@ public class Replicator2AvroConvert {
 		@Override
 		public Object convert(Column s, FieldMeta fieldMeta) throws PtubesException {
 			Object obj = s.getValue();
-			Long res = null;
-			if (obj instanceof Date) {
+			Long res;
+			if (obj instanceof DateTime) {
+				return ((DateTime) obj).getMillis();
+			}else if (obj instanceof Date) {
 				return ((Date) obj).getTime();
 			} else if (obj instanceof Number) {
 				res = ((Number) obj).longValue();

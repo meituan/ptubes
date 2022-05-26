@@ -28,33 +28,39 @@ public class XOutputStreamImpl extends BufferedOutputStream implements XOutputSt
 		super(out);
 	}
 
-	@Override public final void writeBytes(byte[] value) throws IOException {
+	@Override
+	public final void writeBytes(byte[] value) throws IOException {
 		super.write(value, 0, value.length);
 	}
 
-	@Override public final void writeBytes(int value, int length) throws IOException {
+	@Override
+	public final void writeBytes(int value, int length) throws IOException {
 		for (int i = 0; i < length; i++) {
 			super.write(value);
 		}
 	}
 
-	@Override public final void writeBytes(byte[] value, int offset, int length) throws IOException {
+	@Override
+	public final void writeBytes(byte[] value, int offset, int length) throws IOException {
 		super.write(value, offset, length);
 	}
 
-	@Override public final void writeInt(int value, int length) throws IOException {
+	@Override
+	public final void writeInt(int value, int length) throws IOException {
 		for (int i = 0; i < length; i++) {
 			super.write(0x000000FF & (value >>> (i << 3)));
 		}
 	}
 
-	@Override public final void writeLong(long value, int length) throws IOException {
+	@Override
+	public final void writeLong(long value, int length) throws IOException {
 		for (int i = 0; i < length; i++) {
 			super.write((int) (0x00000000000000FF & (value >>> (i << 3))));
 		}
 	}
 
-	@Override public final void writeUnsignedLong(UnsignedLong value) throws IOException {
+	@Override
+	public final void writeUnsignedLong(UnsignedLong value) throws IOException {
 		final long length = value.longValue();
 		if (length < 0) {
 			writeLong(254, 1);
@@ -73,16 +79,19 @@ public class XOutputStreamImpl extends BufferedOutputStream implements XOutputSt
 		}
 	}
 
-	@Override public final void writeLengthCodedString(StringColumn value) throws IOException {
+	@Override
+	public final void writeLengthCodedString(StringColumn value) throws IOException {
 		writeUnsignedLong(UnsignedLong.valueOf(value.getValue().length));
 		writeFixedLengthString(value);
 	}
 
-	@Override public final void writeFixedLengthString(StringColumn value) throws IOException {
+	@Override
+	public final void writeFixedLengthString(StringColumn value) throws IOException {
 		super.write(value.getValue());
 	}
 
-	@Override public final void writeNullTerminatedString(StringColumn value) throws IOException {
+	@Override
+	public final void writeNullTerminatedString(StringColumn value) throws IOException {
 		super.write(value.getValue());
 		super.write(0);
 	}

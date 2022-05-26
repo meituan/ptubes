@@ -130,6 +130,9 @@ public abstract class AbstractRowEventParser extends AbstractBinlogEventParser {
 				columns.add(YearColumn.valueOf(MySQLUtils.toYear(is.readInt(1))));
 				break;
 			case MySQLConstants.TYPE_DATE:
+				// https://dev.mysql.com/doc/refman/5.7/en/datetime.html, date range: ['1000-01-01','9999-12-31'],
+				// can be represented by timestamp, 0000 -00-00 indicates that illegal values require special treatment
+				// Invalid DATE, DATETIME, or TIMESTAMP values are converted to the “zero” value of the appropriate type ('0000-00-00' or '0000-00-00 00:00:00')
 				Pair<DateTime, String> dateValue = MySQLUtils.toDate(is.readInt(3));
 				columns.add(DateColumn.valueOf(dateValue.getLeft(), dateValue.getRight()));
 				break;
