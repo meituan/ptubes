@@ -23,9 +23,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class MySQLUtils {
-	//
+	private static final Logger LOG = LoggerFactory.getLogger(MySQLUtils.class);
 	private static final int DIGITS_PER_4BYTES = 9;
 	private static final BigDecimal POSITIVE_ONE = BigDecimal.ONE;
 	private static final BigDecimal NEGATIVE_ONE = new BigDecimal("-1");
@@ -51,6 +53,7 @@ public final class MySQLUtils {
 	 * 	 			* 5 bits day (1-31)
 	 * @return
 	 */
+	// date range: ['1000-01-01','9999-12-31']
 	public static Pair<DateTime, String> toDate(int value) {
 		final int d = value % 32;
 		value >>>= 5;
@@ -58,11 +61,11 @@ public final class MySQLUtils {
 		final int y = value >> 4;
 
 		boolean backup = false;
-		DateTime millisDate = null;
-		String stringDate = null;
+		DateTime validDate = null;
+		String invalidDate = null;
 		try {
 			if (y >= 1000) {
-				millisDate = new DateTime(y, m, d, 0, 0, 0);
+				validDate = new DateTime(y, m, d, 0, 0, 0);
 			} else {
 				backup = true;
 			}
@@ -74,10 +77,10 @@ public final class MySQLUtils {
 			final Calendar cal = Calendar.getInstance();
 			cal.clear();
 			cal.set(y, m - 1, d);
-			millisDate = new DateTime(cal.getTimeInMillis());
+			validDate = new DateTime(cal.getTimeInMillis());
+			invalidDate = String.format("%04d-%02d-%02d", y, m, d);
 		}
-		stringDate = String.format("%04d-%02d-%02d", y, m, d);
-		return Pair.of(millisDate, stringDate);
+		return Pair.of(validDate, invalidDate);
 	}
 
 	public static java.sql.Time toTime(int value) {
@@ -92,14 +95,12 @@ public final class MySQLUtils {
 	}
 
 	/**
-	 *
-	 * @param negative true: complement form, false: true form
-	 * 	 				* 1 bit sign (1 = non-negative, 0 = negative)
-	 * 	 				* 1 bit unused (reserved for future extensions)
-	 * 	 				* 10 bits hour (0-838)
-	 * 	 				* 6 bits minute (0-59)
-	 * 	 				* 6 bits second (0-59) (LSB)
-	 * @param value encoded time
+	 * 1 bit sign (1 = non-negative, 0 = negative)
+	 * 1 bit unused (reserved for future extensions)
+	 * 10 bits hour (0-838)
+	 * 6 bits minute (0-59)
+	 * 6 bits second (0-59)
+	 * @param value
 	 * @return
 	 */
 	public static Pair<Long, String> getMillisFromTime2(boolean negative, int value) {
@@ -110,9 +111,12 @@ public final class MySQLUtils {
 		int h = (originValue >> 12) & 0x3FF;
 		int m = (originValue >> 6) & 0x3F;
 		int s = (originValue >> 0) & 0x3F;
-
+//		final Calendar c = Calendar.getInstance();
+//		c.set(1970, 0, 1, h, m, s);
+//		c.set(Calendar.MILLISECOND, 0);
 		DateTime dateTime;
 		if (negative == false) {
+			// 时区兼容老版本writer
 			dateTime = new DateTime(1970, 1, 1, 0, 0, 0).withZone(DateTimeZone.UTC).plusHours(h).plusMinutes(m).plusSeconds(s);
 		} else {
 			dateTime = new DateTime(1970, 1, 1, 0, 0, 0).withZone(DateTimeZone.UTC).plusHours(-h).plusMinutes(-m).plusSeconds(-s);
@@ -190,11 +194,11 @@ public final class MySQLUtils {
 		final int second = ((int) (value >> 0)) & 0x3F;
 
 		boolean backup = false;
-		DateTime millisDateTime = null;
-		String stringDateTime = null;
+		DateTime validDateTime = null;
+		String invalidDateTime = null;
 		try {
 			if (year >= 1000) {
-				millisDateTime = new DateTime(year, month, day, hour, minute, second);
+				validDateTime = new DateTime(year, month, day, hour, minute, second);
 			} else {
 				backup = true;
 			}
@@ -206,25 +210,20 @@ public final class MySQLUtils {
 			final Calendar c = Calendar.getInstance();
 			c.set(year, month - 1, day, hour, minute, second);
 			c.set(Calendar.MILLISECOND, 0);
-			millisDateTime = new DateTime(c.getTimeInMillis());
+			validDateTime = new DateTime(c.getTimeInMillis());
+			invalidDateTime = String.format("%04d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, minute, second);
 		}
-		stringDateTime = String.format("%04d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, minute, second);
-		return Pair.of(millisDateTime.getMillis(), stringDateTime);
+		return Pair.of(validDateTime.getMillis(), invalidDateTime);
 	}
 
-	public static java.sql.Timestamp toTimestamp(long seconds) {
+	public static Timestamp toTimestamp(long seconds) {
 		return new Timestamp(seconds * 1000L);
 	}
 
 	public static Pair<Timestamp, String> timestamp2ToTimestamp(long seconds, int fraction, int width) {
 		final Timestamp r = new Timestamp(seconds * 1000L);
 		r.setNanos(nanosForFractionalValue(fraction, width));
-		if (seconds > 0) {
-			DateTime dateTime = new DateTime(r.getTime());
-			return Pair.of(r, String.format("%s.%06d", dateTime.toString("yyyy-MM-dd HH:mm:ss"), r.getNanos() / 1000));
-		} else {
-			return Pair.of(r, "0000-00-00 00:00:00.000000");
-		}
+		return (seconds > 0 ? Pair.of(r, null) : Pair.of(r, "0000-00-00 00:00:00.000000"));
 	}
 
 	public static Pair<Timestamp, String> datetime2ToTimestamp(long value, int fraction, int width) {
@@ -232,7 +231,7 @@ public final class MySQLUtils {
 		final Timestamp r = new Timestamp(millis.getLeft());
 		int nanos = nanosForFractionalValue(fraction, width);
 		r.setNanos(nanos);
-		String stringValue = String.format("%s.%06d", millis.getRight(), nanos / 1000);
+		String stringValue = (StringUtils.isBlank(millis.getRight()) ? millis.getRight() : String.format("%s.%06d", millis.getRight(), nanos/1000));
 		return Pair.of(r, stringValue);
 	}
 
