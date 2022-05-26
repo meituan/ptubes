@@ -68,7 +68,7 @@ public class TxnContext {
         this.txnProduceTimeMs = txnProduceTimeMs;
     }
 
-    public static TxnContext clone(TxnContext origin, int eventIndex) {
+    public static TxnContext clone(TxnContext origin) {
         return new TxnContext(origin.binlogId, origin.binlogOffset, origin.gtid, origin.gtidSet, origin.txnProduceTimeMs);
     }
 
