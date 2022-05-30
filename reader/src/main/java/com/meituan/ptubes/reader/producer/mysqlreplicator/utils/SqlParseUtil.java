@@ -66,9 +66,11 @@ public class SqlParseUtil {
 		LOG.info("Alter sql: " + sql);
 		String[] splitResult = sql.split("\\s+");
 		String tableName = null;
-		if ("RENAME".equalsIgnoreCase(splitResult[3])) {
+		if (splitResult.length > 3 && "RENAME".equalsIgnoreCase(splitResult[3])) {
+			// case: "ALTER TABLE table_name1 rename to table_name2"
 			tableName = splitResult[splitResult.length - 1];
 		} else {
+			// case: "ALTER TABLE test_ln.test_table_2 DROP Birthday", "ALTER TABLE test_table CHANGE column int_t INT_T int", "ALTER TABLE test_table"
 			tableName = splitResult[2];
 		}
 
