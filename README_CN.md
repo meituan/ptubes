@@ -107,4 +107,4 @@ sh bin/stop.sh
 [Ptubes ISSUES](https://github.com/meituan/ptubes/issues)
 
 ## Contact us
-![Contact us](https://raw.githubusercontent.com/wiki/meituan/ptubes/images/lianxifangshi.jpeg)
+<img src="https://raw.githubusercontent.com/wiki/meituan/ptubes/images/lianxifangshi.jpeg" width="200">
